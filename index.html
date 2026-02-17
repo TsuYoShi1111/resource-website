@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource株式会社 - データで作らせる、新しい開発のカタチ</title>
+    <style>
+        /* ===== リセット & 基本設定 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #fff;
+        }
+
+        /* ===== カラーパレット（温かみと先進性の融合） ===== */
+        :root {
+            --warm-orange: #FF8C42;
+            --warm-coral: #FF6B6B;
+            --tech-blue: #4A90E2;
+            --tech-purple: #9B59B6;
+            --dark-gray: #2C3E50;
+            --light-gray: #F8F9FA;
+            --white: #FFFFFF;
+            --gradient-warm: linear-gradient(135deg, #FF8C42 0%, #FF6B6B 100%);
+            --gradient-tech: linear-gradient(135deg, #4A90E2 0%, #9B59B6 100%);
+            --gradient-hybrid: linear-gradient(135deg, #FF8C42 0%, #4A90E2 50%, #9B59B6 100%);
+        }
+
+        /* ===== 共通スタイル ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 60px;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-warm);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--tech-blue);
+            border: 2px solid var(--tech-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--tech-blue);
+            color: white;
+        }
+
+        /* ===== 1. ヘッダー ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--warm-orange);
+        }
+
+        .nav .btn {
+            padding: 10px 25px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== 2. ファーストビュー ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(74,144,226,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: var(--gradient-hybrid);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 2;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== 3. ビジョンステートメント ===== */
+        .vision {
+            background: var(--light-gray);
+        }
+
+        .vision-text {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: #444;
+            text-align: center;
+        }
+
+        .vision-text p {
+            margin-bottom: 30px;
+        }
+
+        /* ===== 4. 従来との対比 ===== */
+        .comparison {
+            background: white;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .comparison-card {
+            padding: 50px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .comparison-card.old {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border: 2px solid #ddd;
+        }
+
+        .comparison-card.new {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            border: 2px solid var(--warm-orange);
+            box-shadow: 0 10px 40px rgba(255, 140, 66, 0.2);
+        }
+
+        .comparison-label {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card.old .comparison-label {
+            color: #666;
+        }
+
+        .comparison-card.new .comparison-label {
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .comparison-items {
+            list-style: none;
+        }
+
+        .comparison-items li {
+            padding: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .comparison-items li::before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            font-size: 1.5rem;
+        }
+
+        .comparison-card.old .comparison-items li::before {
+            color: #999;
+        }
+
+        .comparison-card.new .comparison-items li::before {
+            color: var(--warm-orange);
+        }
+
+        .comparison-result {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 30px;
+            background: var(--gradient-warm);
+            color: white;
+            border-radius: 15px;
+        }
+
+        /* ===== 5. SaaPモデルの3つの柱 ===== */
+        .saap-model {
+            background: var(--light-gray);
+        }
+
+        .saap-diagram {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 60px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .saap-diagram-placeholder {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            padding: 100px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            color: #666;
+            border: 2px dashed #ddd;
+        }
+
+        .saap-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .pillar-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .pillar-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .pillar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .pillar-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .pillar-visual {
+            margin-top: 30px;
+            padding: 40px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ===== 6. 開発自動化への道のり ===== */
+        .automation {
+            background: white;
+        }
+
+        .automation-intro {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #555;
+            text-align: center;
+        }
+
+        .automation-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px;
+            background: var(--light-gray);
+            border-radius: 20px;
+        }
+
+        .automation-phases {
+            display: grid;
+            gap: 30px;
+        }
+
+        .phase-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--warm-orange);
+        }
+
+        .phase-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--warm-orange);
+            margin-bottom: 10px;
+        }
+
+        .phase-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .phase-description {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* ===== 7. AI活用の変化と役割 ===== */
+        .ai-role {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.05) 0%, rgba(74, 144, 226, 0.05) 100%);
+        }
+
+        .ai-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 60px auto;
+        }
+
+        .ai-state {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .ai-state-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .ai-state.before .ai-state-title {
+            color: #999;
+        }
+
+        .ai-state.after .ai-state-title {
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-diagram {
+            padding: 30px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .ai-arrow {
+            font-size: 3rem;
+            color: var(--warm-orange);
+        }
+
+        .ai-result {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .ai-result-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== 8. SaaPモデルがもたらす価値 ===== */
+        .value {
+            background: white;
+        }
+
+        .value-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.05) 0%, rgba(74, 144, 226, 0.05) 100%);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .value-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        /* ===== 9. サービスラインナップ ===== */
+        .services {
+            background: var(--light-gray);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card.primary {
+            border: 3px solid var(--warm-orange);
+            position: relative;
+        }
+
+        .service-card.primary::before {
+            content: 'メイン';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-warm);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.2) 0%, rgba(74, 144, 226, 0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .service-description {
+            margin-bottom: 20px;
+        }
+
+        .service-description li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .service-description li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--warm-orange);
+            font-weight: 700;
+        }
+
+        .service-cta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .service-cta .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== 10. 開発プロセス ===== */
+        .process {
+            background: white;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            background: var(--light-gray);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-warm);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            margin-top: 20px;
+            color: var(--dark-gray);
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .process-note {
+            max-width: 800px;
+            margin: 60px auto 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        /* ===== 11. 導入事例 ===== */
+        .cases {
+            background: var(--light-gray);
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .case-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.15) 0%, rgba(74, 144, 226, 0.15) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .case-content {
+            padding: 30px;
+        }
+
+        .case-industry {
+            display: inline-block;
+            background: var(--gradient-warm);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .case-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .case-result {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .case-result::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--warm-orange);
+        }
+
+        .case-cta {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* ===== 12. 代表メッセージ ===== */
+        .founder {
+            background: white;
+        }
+
+        .founder-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .founder-image {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.2) 0%, rgba(74, 144, 226, 0.2) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .founder-message {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #555;
+        }
+
+        .founder-message p {
+            margin-bottom: 25px;
+        }
+
+        .founder-signature {
+            margin-top: 40px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        /* ===== 13. よくある質問 ===== */
+        .faq {
+            background: var(--light-gray);
+        }
+
+        .faq-list {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            cursor: pointer;
+            position: relative;
+            padding-right: 60px;
+        }
+
+        .faq-question::before {
+            content: 'Q.';
+            color: var(--warm-orange);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 30px;
+            font-size: 1.5rem;
+            color: var(--warm-orange);
+        }
+
+        .faq-answer {
+            padding: 0 30px 25px;
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #666;
+        }
+
+        .faq-answer::before {
+            content: 'A.';
+            color: var(--tech-blue);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        /* ===== 14. ニュース ===== */
+        .news {
+            background: white;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .news-card {
+            background: var(--light-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.15) 0%, rgba(74, 144, 226, 0.15) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+        }
+
+        .news-date {
+            color: #999;
+        }
+
+        .news-category {
+            color: var(--warm-orange);
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .news-cta {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* ===== 15. CTA ===== */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(255, 140, 66, 0.1) 0%, rgba(74, 144, 226, 0.1) 100%);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .final-cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--dark-gray);
+        }
+
+        .final-cta-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* ===== 16. フッター ===== */
+        .footer {
+            background: var(--dark-gray);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: var(--warm-orange);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+        }
+
+        .footer-tagline {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #bbb;
+        }
+
+        /* ===== レスポンシブ ===== */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .comparison-grid,
+            .saap-pillars,
+            .value-cards,
+            .services-grid,
+            .process-steps,
+            .cases-grid,
+            .news-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .ai-comparison {
+                grid-template-columns: 1fr;
+            }
+            .ai-arrow {
+                transform: rotate(90deg);
+            }
+            .founder-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .founder-image {
+                margin: 0 auto;
+            }
+            .nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. ヘッダー -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">Resource</div>
+            <nav class="nav">
+                <a href="#saap">SaaPモデル</a>
+                <a href="#cases">開発事例</a>
+                <a href="#automation">開発自動化(AX)</a>
+                <a href="#company">会社情報</a>
+                <a href="#news">ニュース</a>
+                <a href="#contact" class="btn btn-primary">お問い合わせ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. ファーストビュー -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="hero-title">開発を、再定義する。</h1>
+            <p class="hero-subtitle">
+                人が作るのではなく、データで作らせる。<br>
+                AI × FDE × 開発データ資産が実現する、<br>
+                新しいソフトウェア開発のカタチ。
+            </p>
+            <div class="hero-cta">
+                <a href="#saap" class="btn btn-primary">SaaPモデルを知る</a>
+                <a href="#contact" class="btn btn-secondary">開発のご相談</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div>Scroll Down</div>
+            <div style="font-size: 1.5rem; margin-top: 10px;">↓</div>
+        </div>
+    </section>
+
+    <!-- 3. ビジョンステートメント -->
+    <section class="section vision">
+        <div class="container">
+            <h2 class="section-title">すべての開発を、データ駆動に。</h2>
+            <div class="vision-text">
+                <p>
+                    2026年、ソフトウェア開発はまだ「人の労働」に依存しています。<br>
+                    エンジニアが一から設計し、コードを書き、テストを繰り返す。<br>
+                    この非効率なプロセスを、私たちは変えます。
+                </p>
+                <p>
+                    Resourceは、300件の開発で蓄積した「開発データ資産」と、<br>
+                    7,500名のエンジニアネットワーク、そしてAI技術を組み合わせ、<br>
+                    「データで作らせる」新しい開発モデルを実現しました。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 従来との対比 -->
+    <section class="section comparison">
+        <div class="container">
+            <h2 class="section-title">従来の開発会社とは、何が違うのか?</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card old">
+                    <div class="comparison-label">従来のシステム開発会社</div>
+                    <div style="font-size: 2rem; margin-bottom: 20px;">🧑 人で作る</div>
+                    <ul class="comparison-items">
+                        <li>労働集約型モデル</li>
+                        <li>エンジニアの工数 = コスト</li>
+                        <li>属人的なノウハウ</li>
+                        <li>プロジェクトごとに一から設計</li>
+                        <li>人件費が開発費の大部分</li>
+                        <li>品質がエンジニア個人に依存</li>
+                    </ul>
+                </div>
+                <div class="comparison-card new">
+                    <div class="comparison-label">Resource株式会社</div>
+                    <div style="font-size: 2rem; margin-bottom: 20px;">🤖 データで作らせる</div>
+                    <ul class="comparison-items">
+                        <li>SaaP(Service as a Product)モデル</li>
+                        <li>開発データ資産 × AI</li>
+                        <li>300件で蓄積された成功パターン</li>
+                        <li>自動化と効率化で30%削減</li>
+                        <li>FDEが現場に入り込み監督</li>
+                        <li>データ駆動の品質保証</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="comparison-result">
+                → 開発費30%削減、失敗しない開発体制
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SaaPモデルの3つの柱 -->
+    <section id="saap" class="section saap-model">
+        <div class="container">
+            <h2 class="section-title">SaaP(Service as a Product)モデル</h2>
+            <p class="section-subtitle">データで作らせる、3つの要素</p>
+            
+            <!-- SaaPモデル図解 -->
+            <div class="saap-diagram">
+                <div class="saap-diagram-placeholder">
+                    【SaaPモデル全体図】<br><br>
+                    アップロード画像1(自動ソフトウェア開発サービスの提供)を<br>
+                    ここに配置予定<br><br>
+                    中央: AI Orchestrator(AI指揮者)<br>
+                    左: 開発データ資産(7,000名のエンジニア)<br>
+                    右: 実装(チェック・承認、開発者補助)<br>
+                    下: 顧客(エンタープライズの事業会社)
+                </div>
+            </div>
+
+            <!-- 3つの柱の詳細 -->
+            <div class="saap-pillars">
+                <div class="pillar-card">
+                    <div class="pillar-icon">📊</div>
+                    <h3 class="pillar-title">開発データ資産</h3>
+                    <p class="pillar-description">
+                        300件の開発プロジェクトで蓄積された、設計パターン、コード資産、トラブルシューティング事例をデータベース化。AIが過去の成功パターンを学習し、最適な設計を自動提案。「車輪の再発明」をなくし、開発効率を劇的に向上。
+                    </p>
+                    <div class="pillar-visual">
+                        データベースのイメージ図<br>
+                        (過去の開発ナレッジが蓄積)
+                    </div>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">👨‍💻</div>
+                    <h3 class="pillar-title">FDE(Forward Deployed Engineer)</h3>
+                    <p class="pillar-description">
+                        FDEは、単なる開発者ではありません。お客様の現場に入り込み、業務フローを深く理解し、「なぜその作業が必要なのか」まで掌握。AIが生成した設計を人がチェック・承認し、開発の品質と安全性を保証します。
+                    </p>
+                    <div class="pillar-visual">
+                        FDEが顧客と協働している写真<br>
+                        (現場に入り込むエンジニア)
+                    </div>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-icon">🤖</div>
+                    <h3 class="pillar-title">AI + 外部ツールの即実装</h3>
+                    <p class="pillar-description">
+                        最新のAI技術・外部ツールを継続的にリサーチ。実務開発に即座に組み込める体制を構築。ChatGPT、GitHub Copilot、各種自動化ツールを積極的に活用し、開発の自動化(AX)を推進。
+                    </p>
+                    <div class="pillar-visual">
+                        AI・ツールのロゴ群<br>
+                        (ChatGPT, GitHub Copilot等)
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#" class="btn btn-primary">SaaPモデルの詳細ページを見る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 開発自動化への道のり -->
+    <section id="automation" class="section automation">
+        <div class="container">
+            <h2 class="section-title">2026年から2030年へ<br>開発の完全自動化を目指す</h2>
+            <div class="automation-intro">
+                私たちは、人が主導する労働集約型モデルから、AIが自律的に実行し、人が監督する「自動開発モデル(AX)」へ段階的に移行しています。<br><br>
+                現在はAI主導の開発体制を構築中。お客様には、既にその恩恵を享受いただいています。
+            </div>
+
+            <div class="automation-content">
+                <div class="automation-phases">
+                    <div class="phase-card">
+                        <div class="phase-year">2026年(現在)</div>
+                        <div class="phase-title">エンジニア業務の自動化</div>
+                        <p class="phase-description">
+                            コード生成、テストコード自動生成、ドキュメント自動作成など、エンジニアの定型業務をAIが支援。人80% / AI20%の体制で、開発効率を向上。
+                        </p>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-year">2027年</div>
+                        <div class="phase-title">PM業務の自動化</div>
+                        <p class="phase-description">
+                            プロジェクト進捗管理、リスク予測とアラート、タスク割り当てなど、PM業務の自動化を推進。人50% / AI50%の体制へ。
+                        </p>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-year">2028年</div>
+                        <div class="phase-title">QA・テスター業務の自動化</div>
+                        <p class="phase-description">
+                            自動テストの高度化、バグ予測と修正提案、品質管理の自動化。テスト工程の大幅な効率化を実現。
+                        </p>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-year">2029年</div>
+                        <div class="phase-title">運用・保守業務の自動化</div>
+                        <p class="phase-description">
+                            監視・障害対応の自動化、パフォーマンス最適化、セキュリティパッチの自動適用など。人20% / AI80%の体制へ。
+                        </p>
+                    </div>
+
+                    <div class="phase-card">
+                        <div class="phase-year">2030年</div>
+                        <div class="phase-title">全業務の完全自動化</div>
+                        <p class="phase-description">
+                            AI Agentが開発を完全に実行。人は戦略立案と最終承認のみを担当。AI100%の自動開発モデルを実現。
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: white; border-radius: 15px;">
+                    <strong>自動開発できるシステム:</strong><br>
+                    AI生成HP → AI生成社内システム → AI生成基幹システム
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. AI活用の変化と当社の役割 -->
+    <section class="section ai-role">
+        <div class="container">
+            <h2 class="section-title">AIが開発の主役になる時代、<br>私たちの役割は何か?</h2>
+            
+            <div class="ai-comparison">
+                <div class="ai-state before">
+                    <div class="ai-state-title">AI登場前(Before)</div>
+                    <div class="ai-diagram">
+                        <div style="font-size: 1.5rem; margin-bottom: 20px;">開発者(人) ← 主体</div>
+                        <div style="margin: 20px 0;">↕ 命令・回答</div>
+                        <div style="font-size: 1.5rem;">AIツール(チャット型) ← 補助</div>
+                        <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px;">
+                            対応割合: 人 80% / AI 20%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-arrow">→</div>
+
+                <div class="ai-state after">
+                    <div class="ai-state-title">AIエージェント登場後(After)</div>
+                    <div class="ai-diagram">
+                        <div style="font-size: 1.5rem; margin-bottom: 20px;">AIエージェント ← 主体</div>
+                        <div style="margin: 20px 0;">↕ 承認・フィードバック(学習データ)</div>
+                        <div style="font-size: 1.5rem;">開発者(人) ← 補助</div>
+                        <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px;">
+                            対応割合: AI 80% / 人 20%
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="automation-intro" style="margin-top: 60px;">
+                これまでの開発は、人がAIツールに「命令」する形でした。<br>
+                しかし、これからの開発は、AIエージェントが自律的に実行し、<br>
+                人は「承認・監督」する形に変わります。<br><br>
+                Resourceは、この変化を見据え、開発の仕方そのものを再設計しています。
+            </div>
+
+            <div class="ai-result">
+                <div class="ai-result-title">属人化解消 × 開発効率化</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. SaaPモデルがもたらす価値 -->
+    <section class="section value">
+        <div class="container">
+            <h2 class="section-title">SaaPモデルが実現する、3つの価値</h2>
+            
+            <div class="value-cards">
+                <div class="value-card">
+                    <div class="value-icon">💸</div>
+                    <h3 class="value-title">開発費30%削減</h3>
+                    <p class="value-description">
+                        データ資産とAI活用で、無駄な工数を徹底排除。「やったことがある開発」を一から設計する必要がなくなり、開発費を平均30%削減します。
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">✅</div>
+                    <h3 class="value-title">失敗しない開発体制</h3>
+                    <p class="value-description">
+                        300件の開発で蓄積されたトラブル事例と解決策をデータ化。AIが事前にリスクを予測し、FDEが現場で監督することで、プロジェクトの失敗を未然に防ぎます。
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🏢</div>
+                    <h3 class="value-title">エンタープライズ対応</h3>
+                    <p class="value-description">
+                        7,500名のエンジニアネットワークにより、小規模案件から数十億円規模の大型案件まで柔軟に対応。セキュリティ・品質管理も徹底しています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. サービスラインナップ -->
+    <section class="section services">
+        <div class="container">
+            <h2 class="section-title">SaaPモデルで提供する、開発サービス</h2>
+            
+            <div class="services-grid">
+                <!-- サービス1: システム受託開発(メイン) -->
+                <div class="service-card primary">
+                    <div class="service-image">開発現場・AI×人の協働イメージ</div>
+                    <div class="service-content">
+                        <h3 class="service-title">システム受託開発</h3>
+                        <ul class="service-description">
+                            <li>新規開発・リニューアル・保守運用</li>
+                            <li>全業界対応(医療・人材・建設など実績多数)</li>
+                            <li>要件定義から運用まで一貫サポート</li>
+                        </ul>
+                        <div class="service-cta">
+                            <a href="#cases" class="btn btn-primary">開発事例を見る</a>
+                            <a href="#contact" class="btn btn-secondary">お問い合わせ</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- サービス2: iSSUE -->
+                <div class="service-card">
+                    <div class="service-image">iSSUEのロゴ or UI</div>
+                    <div class="service-content">
+                        <h3 class="service-title">iSSUE</h3>
+                        <ul class="service-description">
+                            <li>企業とエンジニアのマーケットプレイス</li>
+                            <li>7,500名以上のエンジニアが登録</li>
+                        </ul>
+                        <div class="service-cta">
+                            <a href="#" class="btn btn-secondary">iSSUEについて詳しく</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- サービス3: Planning AI -->
+                <div class="service-card">
+                    <div class="service-image">AIのイメージ画像</div>
+                    <div class="service-content">
+                        <h3 class="service-title">Planning AI</h3>
+                        <ul class="service-description">
+                            <li>AI活用の開発支援ツール</li>
+                            <li>ドキュメント自動生成・開発効率化</li>
+                        </ul>
+                        <div class="service-cta">
+                            <a href="#" class="btn btn-secondary" style="opacity: 0.6; cursor: not-allowed;">準備中</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. 開発プロセス -->
+    <section class="section process">
+        <div class="container">
+            <h2 class="section-title">SaaPモデルによる、開発の流れ</h2>
+            
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">①</div>
+                    <h3 class="step-title">情報収集</h3>
+                    <p class="step-description">
+                        最新AI・外部ツールを継続的に調査。お客様の業務課題を丁寧にヒアリング。
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">②</div>
+                    <h3 class="step-title">実務検証</h3>
+                    <p class="step-description">
+                        実案件・実データで有効性を確認。プロトタイプ検証を実施。
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">③</div>
+                    <h3 class="step-title">業務組込</h3>
+                    <p class="step-description">
+                        開発・運用フローへ即時統合。FDEによる現場サポート。
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">④</div>
+                    <h3 class="step-title">再定義</h3>
+                    <p class="step-description">
+                        AI実行を前提に、人の役割を見直し。最適な分担を設計。
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">⑤</div>
+                    <h3 class="step-title">システム実装</h3>
+                    <p class="step-description">
+                        AIを前提としたシステムとして実装・固定化。継続的な改善。
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">⑥</div>
+                    <h3 class="step-title">実務開発</h3>
+                    <p class="step-description">
+                        システムを活用し、効率的に開発実施。定期的な進捗報告とレビュー。
+                    </p>
+                </div>
+            </div>
+
+            <div class="process-note">
+                「開発方法・ツールが変更されることを前提とした開発工程」<br>
+                従来の開発プロセスとの最大の違いです。
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. 導入事例 -->
+    <section id="cases" class="section cases">
+        <div class="container">
+            <h2 class="section-title">さまざまな業界で、SaaPモデルを実践</h2>
+            
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-image">医療関連のイメージ画像</div>
+                    <div class="case-content">
+                        <span class="case-industry">医療業界</span>
+                        <h3 class="case-title">電子カルテシステム開発</h3>
+                        <div class="case-result">開発期間40%短縮</div>
+                        <div class="case-result">業務時間30%削減</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-image">人材関連のイメージ画像</div>
+                    <div class="case-content">
+                        <span class="case-industry">人材業界</span>
+                        <h3 class="case-title">求人マッチングプラットフォーム開発</h3>
+                        <div class="case-result">運用コスト40%削減</div>
+                        <div class="case-result">マッチング精度向上</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-image">建設関連のイメージ画像</div>
+                    <div class="case-content">
+                        <span class="case-industry">建設業界</span>
+                        <h3 class="case-title">工程管理システム開発</h3>
+                        <div class="case-result">遅延30%削減</div>
+                        <div class="case-result">情報共有の円滑化</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-cta">
+                <a href="#" class="btn btn-primary">導入事例一覧を見る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. 代表メッセージ -->
+    <section id="company" class="section founder">
+        <div class="container">
+            <h2 class="section-title">エンジニアCEOが挑む、開発の未来</h2>
+            
+            <div class="founder-content">
+                <div class="founder-image">代表2名の写真<br>(現場に入り込む姿勢が伝わる写真)</div>
+                <div class="founder-message">
+                    <p>
+                        私たちは、エンジニア歴8年です。これまで数百のプロジェクトに携わる中で、「同じような開発を何度も繰り返している」という業界の非効率性を痛感してきました。
+                    </p>
+                    <p>
+                        この課題を解決するために生まれたのが、SaaPモデルです。
+                    </p>
+                    <p>
+                        開発の未来を、私たちと一緒に創りませんか?
+                    </p>
+                    <div class="founder-signature">
+                        代表取締役 寒河江京我・寒河江陽
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. よくある質問 -->
+    <section class="section faq">
+        <div class="container">
+            <h2 class="section-title">SaaPモデルについて、よくあるご質問</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">SaaPモデルとは何ですか?</div>
+                    <div class="faq-answer">
+                        Service as a Productの略で、AI・開発データ資産・FDEを組み合わせた、当社独自の開発支援体制です。従来の「人で作る」開発ではなく、「データで作らせる」開発を実現します。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">AIに任せて、品質は大丈夫ですか?</div>
+                    <div class="faq-answer">
+                        FDE(Forward Deployed Engineer)が現場に入り、AIが生成した設計・コードを人がチェック・承認します。AIと人の協働により、高品質を保証します。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">大規模案件にも対応できますか?</div>
+                    <div class="faq-answer">
+                        はい、7,500名のエンジニアネットワークを活用し、あらゆる規模に柔軟に対応できます。過去には数十名規模のプロジェクトにも対応実績があります。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">開発費が30%削減される根拠は?</div>
+                    <div class="faq-answer">
+                        過去の成功パターンを再利用することで、一から設計する工数を削減。実際のプロジェクトで平均30%の削減実績があります。データ駆動の開発により、手戻りも大幅に減少します。
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">どんな業界に対応していますか?</div>
+                    <div class="faq-answer">
+                        医療・人材・建設など、全業界に対応しています。業界固有の業務フローもFDEが深く理解してサポートします。特定の業界に特化せず、幅広い知見を活かした開発が可能です。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. ニュース -->
+    <section id="news" class="section news">
+        <div class="container">
+            <h2 class="section-title">最新情報</h2>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">ニュース画像</div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">2026.02.10</span>
+                            <span class="news-category">プレスリリース</span>
+                        </div>
+                        <div class="news-title">
+                            SaaPモデルによる開発自動化サービスを本格始動
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-image">ニュース画像</div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">2026.01.25</span>
+                            <span class="news-category">導入事例</span>
+                        </div>
+                        <div class="news-title">
+                            医療法人○○様に電子カルテシステムを納品
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <div class="news-image">ニュース画像</div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span class="news-date">2026.01.15</span>
+                            <span class="news-category">お知らせ</span>
+                        </div>
+                        <div class="news-title">
+                            登録エンジニア数が7,500名を突破
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-cta">
+                <a href="#" class="btn btn-secondary">ニュース一覧</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15. CTA -->
+    <section id="contact" class="final-cta">
+        <div class="container">
+            <h2 class="final-cta-title">開発の未来を、一緒に創りませんか?</h2>
+            <p class="final-cta-description">
+                SaaPモデルについてのご質問、開発のご相談、お見積もり依頼など、お気軽にお問い合わせください。
+            </p>
+            <div class="final-cta-buttons">
+                <a href="#" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 50px;">開発のご相談</a>
+                <a href="#" class="btn btn-secondary" style="font-size: 1.1rem; padding: 18px 50px;">SaaPモデル資料をダウンロード</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 16. フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Resourceについて</h3>
+                    <ul>
+                        <li><a href="#saap">SaaPモデル</a></li>
+                        <li><a href="#automation">開発自動化(AX)</a></li>
+                        <li><a href="#company">会社概要</a></li>
+                        <li><a href="#">代表メッセージ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>サービス</h3>
+                    <ul>
+                        <li><a href="#">システム受託開発</a></li>
+                        <li><a href="#cases">開発事例</a></li>
+                        <li><a href="#">iSSUE</a></li>
+                        <li><a href="#">Planning AI</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>お問い合わせ</h3>
+                    <ul>
+                        <li><a href="#contact">お問い合わせフォーム</a></li>
+                        <li><a href="#">資料ダウンロード</a></li>
+                        <li><a href="#">よくある質問</a></li>
+                        <li><a href="#news">ニュース</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 Resource Inc. All Rights Reserved.</p>
+                <p class="footer-tagline">Redefining Software Development.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
